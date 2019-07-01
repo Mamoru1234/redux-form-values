@@ -19,22 +19,22 @@ const OMITTED_PROPS = [
   'touched',
 ];
 
-export function formField<T>(
-  DecoratedComponent: React.ComponentType<FormFieldImplProps<T>>,
+export function formField<T extends FormFieldImplProps<any>>(
+  DecoratedComponent: React.ComponentType<T>,
   {
     initialOnChangeValidation = false,
     wait = 200,
   }: FormFieldOptions = {}
-  ): React.ComponentType<Omit<T, keyof FormFieldImplProps<T>> & OwnFormFieldWrapperProps<T>> {
+  ): React.ComponentType<Omit<T, keyof FormFieldImplProps<T['value']>> & OwnFormFieldWrapperProps<T['value']>> {
 
-  type OwnProps = Omit<FormFieldImplProps<T>, keyof FormFieldImplProps<T>> & OwnFormFieldWrapperProps<T>;
+  type OwnProps = Omit<T, keyof FormFieldImplProps<T['value']>> & OwnFormFieldWrapperProps<T['value']>;
 
-  type MergedFormFieldWrapperProps<T> = Omit<FormFieldImplProps<T>, keyof FormFieldImplProps<T>> & FormFieldWrapperProps<T>;
+  type MergedFormFieldWrapperProps = Omit<T, keyof FormFieldImplProps<T['value']>> & FormFieldWrapperProps<T['value']>;
 
-  class FormField extends React.PureComponent<MergedFormFieldWrapperProps<T>, FormFieldWrapperState<T>> {
+  class FormField extends React.PureComponent<MergedFormFieldWrapperProps, FormFieldWrapperState<T>> {
     private changing: boolean = false;
     private readonly parentCallBack: any;
-    constructor(props: MergedFormFieldWrapperProps<T>) {
+    constructor(props: MergedFormFieldWrapperProps) {
       super(props);
       this.state = {
         value: this.props.value,

@@ -15,6 +15,8 @@ export interface FormFieldState<T> {
 
 export interface FieldDescriptor<FieldType> {
   fieldStateSelector: (state: any) => FormFieldState<FieldType>;
+  initField(state: FormFieldState<FieldType>): void;
+  setError(errorMessage: string): void;
   changeField(value: FieldType): any;
   changeFieldTouched(newValue: boolean): void;
 }

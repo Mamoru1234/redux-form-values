@@ -1,7 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Sample from 'redux-form-values/Sample';
+import SampleInput from './SampleInput';
+import {generateDescriptor} from '../../../src/FormFieldUtils';
+
+const descriptor = generateDescriptor<string>('randomField');
 
 const App: React.FC = () => {
   return (
@@ -19,7 +22,9 @@ const App: React.FC = () => {
         >
           Learn React
         </a>
-        <Sample />
+        <SampleInput
+          descriptor = {descriptor}
+        />
       </header>
     </div>
   );
