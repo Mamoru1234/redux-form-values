@@ -1,0 +1,39 @@
+{
+  "name": "redux-form-values",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc -p .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mamoru1234/redux-form-values.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mamoru1234/redux-form-values/issues"
+  },
+  "homepage": "https://github.com/Mamoru1234/redux-form-values#readme",
+  "dependencies": {
+    "@types/lodash": "^4.14.135",
+    "@types/react": "^16.8.22",
+    "@types/react-redux": "^7.1.1",
+    "lodash": "^4.17.11",
+    "react": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.2"
+  },
+  "dspm": {
+    "plugins": [
+      "jsProject",
+      "npm"
+    ]
+  }
+}
