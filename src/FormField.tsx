@@ -45,6 +45,13 @@ export function formField<T extends FormFieldImplProps<any>>(
         this.props.changeField(value);
       }, wait);
     }
+    public componentWillReceiveProps(nextProps: MergedFormFieldWrapperProps) {
+      if (!this.changing && this.state.value !== nextProps.value) {
+        this.setState({
+          value: nextProps.value,
+        });
+      }
+    }
     public onChange = (value: T, e?: any): void => {
       const stateUpdate: any = {
         value,

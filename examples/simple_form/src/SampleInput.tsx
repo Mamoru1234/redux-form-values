@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {formField} from '../../../src/FormField';
+import {formField} from 'redux-form-values/FormField';
 
 interface Props {
   className?: string;

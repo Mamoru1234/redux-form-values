@@ -8,18 +8,25 @@ export interface FormFieldImplProps<T> {
 export interface FormFieldState<T> {
   value: T;
   errorMessage?: string;
-  initialValue?: T;
+  initialValue: T;
   touched: boolean;
-  validator: (value: T) => string;
+}
+
+export interface FieldDescriptorOptions<T> {
+  defaultValue:T;
+  validator?: FieldValidator<T>;
 }
 
 export interface FieldDescriptor<FieldType> {
   fieldStateSelector: (state: any) => FormFieldState<FieldType>;
-  initField(state: FormFieldState<FieldType>): void;
-  setError(errorMessage: string): void;
+  initField(state: Partial<FormFieldState<FieldType>>): void;
+  setError(errorMessage?: string): void;
   changeField(value: FieldType): any;
   changeFieldTouched(newValue: boolean): void;
+  destroy(newValue: boolean): void;
 }
+
+export type FieldValidator<T> = (value: T, state?: any) => string | undefined
 
 export interface FormFieldOptions {
   initialOnChangeValidation?: boolean;

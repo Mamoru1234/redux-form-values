@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/Mamoru1234/redux-form-values#readme",
   "dependencies": {
-    "@types/lodash": "^4.14.135",
     "@types/react": "^16.8.22",
     "@types/react-redux": "^7.1.1",
     "lodash": "^4.17.11",
@@ -28,6 +27,8 @@
     "redux": "^4.0.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.135",
+    "@types/redux": "^3.6.0",
     "typescript": "^3.5.2"
   },
   "dspm": {

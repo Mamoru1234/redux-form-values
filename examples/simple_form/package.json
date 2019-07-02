@@ -9,12 +9,15 @@
     "@types/react-dom": "16.8.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
     "react-scripts": "3.0.1",
-    "redux-form-values": "file:../../build/module",
+    "redux": "^4.0.1",
+    "redux-form-values": "file:./../../build/redux-form-values.tgz",
+    "redux-thunk": "^2.3.0",
     "typescript": "3.5.2"
   },
   "scripts": {
-    "reinstall": "rm -rf node_modules package-lock.json && npm i",
+    "reinstall": "rm -rf node_modules/ package-lock.json && npm i",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
