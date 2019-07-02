@@ -1,4 +1,4 @@
-import {FormFieldState} from './Interfaces';
+import {FieldInitOptions, FormFieldState} from './Interfaces';
 
 export interface FieldAction<T> {
   type: symbol;
@@ -8,9 +8,18 @@ export interface FieldAction<T> {
 
 export const INIT_FIELD = Symbol('INIT_FIELD');
 
-export const initField = <T>(fieldId: string, value: FormFieldState<T>): FieldAction<FormFieldState<T>> => ({
+export interface InitPayload<T> {
+  value: FormFieldState<T>;
+  options?: FieldInitOptions;
+}
+
+export const initField = <T>(fieldId: string, value: FormFieldState<T>,
+                             options?: FieldInitOptions): FieldAction<InitPayload<T>> => ({
   fieldId,
-  payload: value,
+  payload: {
+    value,
+    options,
+  },
   type: INIT_FIELD,
 });
 

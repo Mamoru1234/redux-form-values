@@ -1,4 +1,4 @@
-import {FieldDescriptor, FieldValidator} from './Interfaces';
+import {FieldDescriptor, FieldInitOptions, FieldValidator} from './Interfaces';
 import {generateDescriptor} from './FormFieldUtils';
 import forEach from 'lodash/forEach';
 import mapValues from 'lodash/mapValues';
@@ -9,8 +9,6 @@ export type FormDescriptors<T> = {[key in keyof T]: FieldDescriptor<T[key]>};
 export type FormValidation<FormValues> = {
   [key in keyof FormValues]: FieldValidator<FormValues[key]>;
 };
-
-// export const defaultValidator: FieldValidator<any> = () => undefined;
 
 export interface FormOptions<FormValues> {
   defaultValues: FormValues;
@@ -39,13 +37,12 @@ export class Form<FormValues, K extends keyof FormValues> {
     this.formValuesSelector = (state: any) =>
       mapValues(this.descriptors, (descriptor) => descriptor.fieldStateSelector(state).value) as any;
   }
-  // TODO options for init
-  public initValues(initValues?: Partial<FormValues>): any {
+  public initValues(initValues?: Partial<FormValues>, options?: FieldInitOptions): any {
     return (dispatch: any) => {
       forEach(this.descriptors, (descriptor, key) => {
         dispatch(descriptor.initField({
           value: initValues && initValues[key as K]
-        }));
+        }, options));
       });
       this.initCalled = true;
     };
@@ -86,6 +83,15 @@ export class Form<FormValues, K extends keyof FormValues> {
       });
       return !hasSomeError;
     };
+  }
+  public destroy(): any {
+    return (dispatch: any) => {
+      forEach(this.descriptors, (descriptor: FieldDescriptor<any>) => {
+        dispatch(descriptor.destroy());
+      });
+      delete forms[this._formId];
+      this.initCalled = false;
+    }
   }
 }
 

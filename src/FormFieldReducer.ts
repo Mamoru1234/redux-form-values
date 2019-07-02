@@ -1,5 +1,13 @@
 import {FormFieldState} from './Interfaces';
-import {CHANGE_FIELD, CHANGE_FIELD_ERROR, CHANGE_FIELD_TOUCHED, FieldAction, INIT_FIELD} from './FormFieldActions';
+import {
+  CHANGE_FIELD,
+  CHANGE_FIELD_ERROR,
+  CHANGE_FIELD_TOUCHED,
+  FieldAction,
+  INIT_FIELD,
+  InitPayload
+} from './FormFieldActions';
+import get from 'lodash/get';
 
 export interface FormFieldsState {
   [fieldId: string]: FormFieldState<any>;
@@ -7,9 +15,13 @@ export interface FormFieldsState {
 
 export default function (state: FormFieldsState = {}, action: FieldAction<any> = {} as any) {
   if (action.type === INIT_FIELD) {
+    const payload: InitPayload<any>  = action.payload;
+    if (state[action.fieldId] && !get(payload.options, 'resetIfExists', false)) {
+      return state;
+    }
     return {
       ...state,
-      [action.fieldId]: action.payload,
+      [action.fieldId]: payload.value,
     };
   }
   if (action.type === CHANGE_FIELD) {

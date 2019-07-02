@@ -17,13 +17,17 @@ export interface FieldDescriptorOptions<T> {
   validator?: FieldValidator<T>;
 }
 
+export interface FieldInitOptions {
+  resetIfExists?: boolean;
+}
+
 export interface FieldDescriptor<FieldType> {
   fieldStateSelector: (state: any) => FormFieldState<FieldType>;
-  initField(state: Partial<FormFieldState<FieldType>>): void;
+  initField(state: Partial<FormFieldState<FieldType>>, options?: FieldInitOptions): void;
   setError(errorMessage?: string): void;
   changeField(value: FieldType): any;
   changeFieldTouched(newValue: boolean): void;
-  destroy(newValue: boolean): void;
+  destroy(): void;
 }
 
 export type FieldValidator<T> = (value: T, state?: any) => string | undefined
