@@ -1,4 +1,4 @@
-import {FieldDescriptor, FieldDescriptorOptions, FormFieldState} from './Interfaces';
+import {FieldDescriptor, FieldDescriptorOptions, FieldInitOptions, FormFieldState} from './Interfaces';
 import {changeField, changeFieldError, changeFieldTouched, destroyField, initField} from './FormFieldActions';
 import isUndefined from 'lodash/isUndefined';
 
@@ -30,7 +30,7 @@ export const generateDescriptor = <T>(fieldId: string, options: FieldDescriptorO
         }
       };
     },
-    initField(state: Partial<FormFieldState<T>>): any {
+    initField(state: Partial<FormFieldState<T>>, initOptions?: FieldInitOptions): any {
       return (dispatch: any, getState: () => any) => {
         const value = undefDefault(state.value, options.defaultValue);
         const finalState: FormFieldState<T> = {
@@ -39,7 +39,7 @@ export const generateDescriptor = <T>(fieldId: string, options: FieldDescriptorO
           touched: undefDefault(state.touched, false),
           errorMessage: undefDefault(state.errorMessage, validator(value, getState())),
         };
-        return dispatch(initField(fieldId, finalState));
+        return dispatch(initField(fieldId, finalState, initOptions));
       };
     },
     setError(errorMessage?: string): any {

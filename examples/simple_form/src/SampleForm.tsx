@@ -24,7 +24,9 @@ class SampleForm extends React.PureComponent {
     super(props);
     store.dispatch<any>(form.initValues());
     setTimeout(() => {
-      console.log(form.getValues(store.getState()));
+      store.dispatch<any>(form.initValues(undefined, {
+        resetIfExists: true,
+      }));
     }, 10000);
   }
   public render() {
